@@ -34,17 +34,13 @@ javascript:
   $(function () {
     var svg = $('.navbar-brand').find('svg');
     var base = 800;
-    var colors = ['red', 'yellow', 'green'];
-    var times = 3;
-    var explode = function (color) {
-      svg.css('fill', color);
-    };
-    //ToDo: colors[j] can't be passed into it
-    for (i = 0; i < times; i++) {
-      for (j = 0; j < 3; j++) {
-        setTimeout(function () {
-          explode(colors[j]);
-        }, (j + 1 + colors.length * i) * base);
-      }
+    var colors = ['orangered', 'yellow', 'lawngreen'];
+
+    function trafficLight() {
+      var d = new Date();
+      var s = d.getSeconds();
+      svg.css('fill', colors[s%colors.length]);
+      setTimeout(function () {trafficLight()}, base);
     }
+    trafficLight();
   });
