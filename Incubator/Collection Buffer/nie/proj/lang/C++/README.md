@@ -1,0 +1,1 @@
+1. Implement a greedy snake by C++

@@ -1,0 +1,50 @@
+/ToDo: refer to bootstrap3.3.7 -> with option incons, input group
+nav.navbar.navbar-inverse.navbar-static-top
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed data-toggle='collapse' data-target='#github-demo' type='button' aria-expanded='false'
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
+      a.navbar-brand href='#'
+        /ToDo: I can't find a better way to make the image vertically centered
+        svg aria-hidden='true' viewBox='0 0 16 16' height='32' width='32' style='fill:white;transform: translateY(-25%)'
+          path fill-rule='evenodd' d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z'
+    .collapse.navbar-collapse#github-demo
+      form.navbar-form.navbar-left.form-inline
+        .form-group.form-group-sm
+          label.sr-only for='github-search' Search (in Gitub)
+          .input-group
+            .input-group-addon This repository
+            input.form-control#github-search type='text' placeholder='Search'
+      ul.nav.navbar-nav
+        li.active
+          a href='?tab=css' Pull requests
+        li
+          a href='?tab=components' Issues
+        li
+          a href='?tab=dashboard' Marketplace
+        li
+          a href='?tab=dashboard' Explore
+
+
+javascript:
+  $(function () {
+    var svg = $('.navbar-brand').find('svg');
+    var base = 800;
+    var colors = ['red', 'yellow', 'green'];
+    var times = 3;
+    var explode = function (color) {
+      svg.css('fill', color);
+    };
+    //ToDo: colors[j] can't be passed into it
+    for (i = 0; i < times; i++) {
+      for (j = 0; j < 3; j++) {
+        setTimeout(function () {
+          explode(colors[j]);
+        }, (j + 1 + colors.length * i) * base);
+      }
+    }
+  });

@@ -1,0 +1,1 @@
+This folder is the support for me to learn to cpp_primer. It comes from https://github.com/amidvidy/learning

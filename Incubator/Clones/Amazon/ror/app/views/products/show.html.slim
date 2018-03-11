@@ -1,0 +1,40 @@
+.container
+  br
+  .card.text-center
+    .card-header Featured
+    img.card-img-top src="..." alt="Card image cap"
+    .card-block
+      h4.card-title.text-center = @product.title
+      br
+      p.card-text = @product.description
+      a.btn.btn-primary href="#" Go somewhere
+    .card-footer.text-muted 2 days ago
+  br
+
+  - if @product.product_comments.present?
+    h2 Comments
+    br
+    /ul style="list-style-type:none"
+
+    - @product.product_comments.each do |comment|
+      .col-sm-12
+        .card
+          .card-header = comment.user.full_name + ' (' + comment.user.username + '):'
+          .card-block
+            p.card-text = comment.content
+          - if current_user == comment.user
+            .card-footer
+              = link_to 'Delete Comment', [comment.product, comment], method: :delete, data: {confirm: 'Are you sure?'}
+      br
+
+  h2 Add a comment:
+  .col-sm-12
+    = simple_form_for([@product, @product.product_comments.build]) do |f|
+      = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+      = f.input :content, as: :text, input_html: {rows: 10, cols: 40}
+      = f.button :submit, class: 'btn-primary'
+
+
+
+  br
+  .float-right = link_to 'Back', products_path

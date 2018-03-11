@@ -1,0 +1,14 @@
+doctype html
+html lang="en"
+  head
+    title Amazon Clone
+    = csrf_meta_tags
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    //ToDo
+    //  1. Add if IE9, use js to handle html5 issues
+    //     ref: https://www.railstutorial.org/book/filling_in_the_layout
+
+
+  body
+    = yield

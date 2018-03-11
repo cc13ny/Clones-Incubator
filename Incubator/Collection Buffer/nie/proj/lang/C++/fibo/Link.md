@@ -1,0 +1,1 @@
+http://www.cplusplus.com/articles/jT07M4Gy/

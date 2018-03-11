@@ -1,0 +1,2 @@
+1. [Intro2RecommSys] (https://www.coursera.org/learn/recommender-systems/outline)
+2. [Mortar's RecommSys] (http://help.mortardata.com/data_apps/recommendation_engine/how_to_build_a_recommendation_engine)

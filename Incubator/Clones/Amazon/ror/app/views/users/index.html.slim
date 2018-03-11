@@ -1,0 +1,33 @@
+css:
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+.container
+  br
+  br
+  - if user_signed_in?
+    h1 = current_user.full_name + ' (' + current_user.username + ')'
+  .float-right = link_to('Go Shopping !!!', products_path, class: 'text-danger')
+  - if user_signed_in?
+    p = link_to('Logout', destroy_user_session_path, method: :delete)
+    p = link_to('Edit registration', edit_user_registration_path)
+  - else
+    p = link_to('Login', new_user_session_path)
+    p = link_to('Sign Up', new_user_registration_path)
+  table
+    tr
+      th ID
+      th UserName
+      th FirstName
+      th LastName
+      th Email
+    - @users.each do |user|
+      tr
+        td = user.id
+        td = user.username
+        td = user.first_name
+        td = user.last_name
+        td = user.email

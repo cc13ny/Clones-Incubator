@@ -1,0 +1,56 @@
++ Thread
+  
+  + Thread Basic: http://www.tutorialspoint.com/java/java_multithreading.htm
+
+  + Thread Synchronization: http://www.tutorialspoint.com/java/java_thread_synchronization.htm
+
+  + Interthread Communication: http://www.tutorialspoint.com/java/java_thread_communication.htm
+
+  + Thread Deadlock: http://www.tutorialspoint.com/java/java_thread_deadlock.htm
+
+  + Thread Control: http://www.tutorialspoint.com/java/java_thread_deadlock.htm
+
+
++ Regular Expression
+
+  + http://www.tutorialspoint.com/java/java_regular_expressions.htm
+
++ String
+
+  + http://www.tutorialspoint.com/java/java_strings.htm
+
++ Polymorphism
+
+  + http://www.tutorialspoint.com/java/java_polymorphism.htm
+
++ Encapsulation
+
+  + http://www.tutorialspoint.com/java/java_encapsulation.htm
+
++ Interface
+
+  + http://www.tutorialspoint.com/java/java_interfaces.htm
+
++ Collection Framework
+
+  + http://www.tutorialspoint.com/java/java_collections.htm
+
++ Serialization
+
+  + http://www.tutorialspoint.com/java/java_serialization.htm
+
++ Networking
+
+  + http://www.tutorialspoint.com/java/java_networking.htm
+
++ Sending Email
+
+  + http://www.tutorialspoint.com/java/java_sending_email.htm
+
++ Applet Basics
+
+  + http://www.tutorialspoint.com/java/java_applet_basics.htm
+
++ Java 8
+  
+  + http://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html
