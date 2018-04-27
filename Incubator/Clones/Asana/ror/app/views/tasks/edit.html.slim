@@ -1,0 +1,10 @@
+.container-fluid
+  .row
+    .col-xs-12
+      br
+      = simple_form_for @task do |f|
+        = f.input :title
+        = f.input :description
+        = f.input :assignee_id
+        = f.input :deadline
+        = f.submit 'Save', class: 'btn btn-primary pull-right'

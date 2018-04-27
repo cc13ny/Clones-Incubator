@@ -1,0 +1,213 @@
+.container-fluid
+  .row
+    .col-xs-12
+      #d3-tasks
+    .col-xs-12
+      h1.text-center Tasks Management
+      = link_to 'Create Task', new_task_path, class: 'btn btn-primary pull-right'
+      table.table
+        tr
+          th Id
+          th Description
+          th Assignee ID
+          th Due Date
+          th Edit
+          th Destroy
+          th Dependencies
+        - @tasks.each do |task|
+          tr
+            td = task.id
+            td = task.description
+            td = task.assignee_id
+            td = task.deadline
+            th = link_to 'Edit', edit_task_path(task)
+            th = link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
+            th = link_to 'Dependencies', task_dependencies_path(task)
+
+- content_for :javascript_head do
+  = javascript_include_tag "http://d3js.org/d3.v3.min.js"
+  /= javascript_include_tag "http://mbostock.github.com/d3/d3.js"
+  /= javascript_include_tag "http://mbostock.github.com/d3/d3.layout.js"
+  /= javascript_include_tag "http://mbostock.github.com/d3/d3.geom.js"
+
+
+
+/css:
+  .bar {
+    fill: steelblue;
+  }
+
+  .bar:hover {
+    fill: orange;
+  }
+/
+/
+//javascript:
+//  var data = [150, 230, 180, 90];
+//
+//  var svg = d3.select("body")
+//          .append("svg")
+//          .attr("width", 300)
+//          .attr("height", 200);
+//
+//  svg.selectAll(".bar")
+//          .data(data)
+//          .enter()
+//          .append("rect")
+//          .attr({
+//            class: "bar",
+//            width: function (d) {
+//              return d;
+//            },
+//            height: "40",
+//            y: function (d, i) {
+//              return i * 50 + 10;
+//            },
+//            x: "10"
+//          });
+
+css:
+  .link {
+    fill: none;
+    stroke: #666;
+    stroke-width: 1.5px;
+  }
+
+  #licensing {
+    fill: green;
+  }
+
+  .link.licensing {
+    stroke: green;
+  }
+
+  .link.resolved {
+    stroke-dasharray: 0, 2 1;
+  }
+
+  circle {
+    fill: #ccc;
+    stroke: #333;
+    stroke-width: 1.5px;
+  }
+
+  text {
+    font: 10px sans-serif;
+    pointer-events: none;
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  }
+
+javascript:
+  var links = [
+    {source: "Microsoft", target: "Amazon", type: "licensing"},
+    {source: "Microsoft", target: "HTC", type: "licensing"},
+    {source: "Samsung", target: "Apple", type: "suit"},
+    {source: "Motorola", target: "Apple", type: "suit"},
+    {source: "Nokia", target: "Apple", type: "resolved"},
+    {source: "HTC", target: "Apple", type: "suit"},
+    {source: "Kodak", target: "Apple", type: "suit"},
+    {source: "Microsoft", target: "Barnes & Noble", type: "suit"},
+    {source: "Microsoft", target: "Foxconn", type: "suit"},
+    {source: "Oracle", target: "Google", type: "suit"},
+    {source: "Apple", target: "HTC", type: "suit"},
+    {source: "Microsoft", target: "Inventec", type: "suit"},
+    {source: "Samsung", target: "Kodak", type: "resolved"},
+    {source: "LG", target: "Kodak", type: "resolved"},
+    {source: "RIM", target: "Kodak", type: "suit"},
+    {source: "Sony", target: "LG", type: "suit"},
+    {source: "Kodak", target: "LG", type: "resolved"},
+    {source: "Apple", target: "Nokia", type: "resolved"},
+    {source: "Qualcomm", target: "Nokia", type: "resolved"},
+    {source: "Apple", target: "Motorola", type: "suit"},
+    {source: "Microsoft", target: "Motorola", type: "suit"},
+    {source: "Motorola", target: "Microsoft", type: "suit"},
+    {source: "Huawei", target: "ZTE", type: "suit"},
+    {source: "Ericsson", target: "ZTE", type: "suit"},
+    {source: "Kodak", target: "Samsung", type: "resolved"},
+    {source: "Apple", target: "Samsung", type: "suit"},
+    {source: "Kodak", target: "RIM", type: "suit"},
+    {source: "Nokia", target: "Qualcomm", type: "suit"}
+  ];
+
+  var nodes = {};
+
+  // Compute the distinct nodes from the links.
+  links.forEach(function (link) {
+    link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+    link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+  });
+
+  var width = 960,
+          height = 500;
+
+  var force = d3.layout.force()
+          .nodes(d3.values(nodes))
+          .links(links)
+          .size([width, height])
+          .linkDistance(60)
+          .charge(-300)
+          .on("tick", tick)
+          .start();
+
+  var svg = d3.select("#d3-tasks").append("svg")
+          .attr("width", width)
+          .attr("height", height);
+
+  // Per-type markers, as they don't inherit styles.
+  svg.append("defs").selectAll("marker")
+          .data(["suit", "licensing", "resolved"])
+          .enter().append("marker")
+          .attr("id", function (d) {
+            return d;
+          })
+          .attr("viewBox", "0 -5 10 10")
+          .attr("refX", 15)
+          .attr("refY", -1.5)
+          .attr("markerWidth", 6)
+          .attr("markerHeight", 6)
+          .attr("orient", "auto")
+          .append("path")
+          .attr("d", "M0,-5L10,0L0,5");
+
+  var path = svg.append("g").selectAll("path")
+          .data(force.links())
+          .enter().append("path")
+          .attr("class", function (d) {
+            return "link " + d.type;
+          })
+          .attr("marker-end", function (d) {
+            return "url(#" + d.type + ")";
+          });
+
+  var circle = svg.append("g").selectAll("circle")
+          .data(force.nodes())
+          .enter().append("circle")
+          .attr("r", 6)
+          .call(force.drag);
+
+  var text = svg.append("g").selectAll("text")
+          .data(force.nodes())
+          .enter().append("text")
+          .attr("x", 8)
+          .attr("y", ".31em")
+          .text(function (d) {
+            return d.name;
+          });
+
+  // Use elliptical arc path segments to doubly-encode directionality.
+  function tick() {
+    path.attr("d", linkArc);
+    circle.attr("transform", transform);
+    text.attr("transform", transform);
+  }
+
+  function linkArc(d) {
+    var dx = d.target.x - d.source.x,
+            dy = d.target.y - d.source.y,
+            dr = Math.sqrt(dx * dx + dy * dy);
+    return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+  }
+
+  function transform(d) {
+    return "translate(" + d.x + "," + d.y + ")";
+  }

@@ -1,0 +1,52 @@
+.container-fluid
+  .row
+    .col-xs-12
+      .panel.panel-primary
+        .panel-heading.text-center
+          | Subtasks
+        table.table
+          tr
+            th ID
+            th Title
+            /th Description
+            /th Sup Tasks
+            /th Sub Tasks
+            /th Show
+            /th Edit
+            /th Destroy
+          /- @tasks.task_
+          - @subtasks.each do |task|
+            tr
+              td = task.id
+              td = task.title
+              /td = raw(task.description)
+              /td = link_to 'Sup', sup_tasks_task_path(task)
+              /td = link_to 'Sub', sub_tasks_task_path(task)
+              /td = link_to 'Show', task_path(task)
+              /td = link_to 'Edit', edit_task_path(task)
+              /td = link_to 'Destroy', task_path(task), method: :delete, data: {confirm: 'Are you sure?'}
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading.text-center
+          | Suptasks
+        table.table
+          tr
+            th ID
+            th Title
+            /th Description
+            /th Sup Tasks
+            /th Sub Tasks
+            /th Show
+            /th Edit
+            /th Destroy
+          /- @tasks.task_
+          - @suptasks.each do |task|
+            tr
+              td = task.id
+              td = task.title
+              /td = raw(task.description)
+              /td = link_to 'Sup', sup_tasks_task_path(task)
+              /td = link_to 'Sub', sub_tasks_task_path(task)
+              /td = link_to 'Show', task_path(task)
+              /td = link_to 'Edit', edit_task_path(task)
+              /td = link_to 'Destroy', task_path(task), method: :delete, data: {confirm: 'Are you sure?'}
