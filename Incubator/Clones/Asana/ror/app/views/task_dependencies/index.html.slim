@@ -15,7 +15,7 @@
             /th Edit
             /th Destroy
           /- @tasks.task_
-          - @subtasks.each do |task|
+          - @task.sub_tasks.each do |task|
             tr
               td = task.id
               td = task.title
@@ -40,7 +40,7 @@
             /th Edit
             /th Destroy
           /- @tasks.task_
-          - @suptasks.each do |task|
+          - @task.sup_tasks.each do |task|
             tr
               td = task.id
               td = task.title
@@ -50,3 +50,35 @@
               /td = link_to 'Show', task_path(task)
               /td = link_to 'Edit', edit_task_path(task)
               /td = link_to 'Destroy', task_path(task), method: :delete, data: {confirm: 'Are you sure?'}
+
+    /.col-xs-12
+    /  /ToDo: fields for sub_tasks?
+    /  = simple_form_for @task, url:task_path(@task), remote: true do |f|
+    /    = f.fields_for :sub_task_dependencies do |ef|
+    /      /ToDo: maybe change it to simple_form collection
+    /      = ef.collection_select :sub_task_id, Task.all, :id, :title, {include_blank: true}, {class: 'js-select2'}
+    /      = ef.hidden_field :id
+    /      = ef.hidden_field :_destroy
+    /      br
+    /    = f.submit 'Save', class: 'btn btn-primary'
+
+    .col-xs-12
+      /ToDo: fields for sub_tasks?
+      = simple_form_for @task, url:task_path(@task), remote: true do |f|
+        table.table
+        = f.fields_for :sub_tasks do |ef|
+          /ToDo: maybe change it to simple_form collection
+          /= ef.collection_select :sub_task_id, Task.all, :id, :title, {include_blank: true}, {class: 'js-select2'}
+          = ef.input :title
+          /= ef.input :description
+          /= ef.input :assignee_id
+          /= ef.input :deadline
+          = ef.hidden_field :id
+          = ef.hidden_field :_destroy
+          br
+        = f.submit 'Save', class: 'btn btn-primary'
+
+javascript:
+  $(document).ready(function () {
+    $('.js-select2').select2();
+  });

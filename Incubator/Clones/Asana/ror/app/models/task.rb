@@ -10,6 +10,10 @@ class Task < ApplicationRecord
 
   has_many :sub_task_dependencies, foreign_key: :task_id, class_name: 'TaskDependency', dependent: :delete_all
   has_many :sub_tasks, through: :sub_task_dependencies
+
+
+  accepts_nested_attributes_for :sub_task_dependencies
+  accepts_nested_attributes_for :sub_tasks
   # , source: :sub_task
 
   # def sup_tasks

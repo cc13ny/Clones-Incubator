@@ -44,6 +44,10 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :description, :assignee_id, :deadline)
+    params.require(:task)
+        .permit(:title, :description, :assignee_id, :deadline,
+                sub_task_dependencies_attributes: [:sub_task_id, :id, :_destroy],
+                sub_tasks_attributes: [:title, :description, :assignee_id, :deadline, :id, :_destroy]
+        )
   end
 end

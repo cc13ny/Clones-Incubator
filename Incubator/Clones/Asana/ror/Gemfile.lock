@@ -147,6 +147,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    select2-rails (3.4.9)
+      sass-rails
+      thor (~> 0.14)
     simple_form (3.5.0)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
@@ -201,6 +204,7 @@ DEPENDENCIES
   rails (~> 5.0.6)
   rspec-rails
   sass-rails (~> 5.0)
+  select2-rails
   simple_form
   slim
   spring
